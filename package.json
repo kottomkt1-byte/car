@@ -1,0 +1,16 @@
+{
+  "name": "chabunhi-car-budget",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "차분히 — 내 삶에 맞는 자동차 예산 계산기",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "preview:file": "node scripts/standalone.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/app.js && node --check src/calculator.js && node --check src/share.js && node --check src/affiliates.js"
+  },
+  "engines": { "node": ">=20" }
+}
