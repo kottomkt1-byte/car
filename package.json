@@ -1,9 +1,9 @@
 {
   "name": "chabunhi-car-budget",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "차분히 — 내 삶에 맞는 자동차 예산 계산기",
+  "description": "차분히 — 숫자 네 개로 내 차 추천",
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs",

@@ -1,97 +1,21 @@
 <!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111311">
-  <meta name="description" content="연봉만으로 차를 고르지 마세요. 자산, 생활비, 저축, 가족 지원과 유지비까지. 내 삶에 맞는 자동차 예산과 드라이버 유형을 차분히 확인해 보세요.">
-  <meta property="og:title" content="차분히 — 내 드림카, 현실이 될 수 있을까?">
-  <meta property="og:description" content="드림카와 통장 사이. 나의 자동차 예산과 드라이버 유형을 알아보세요.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="ko_KR">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>차분히 — 내 삶에 맞는 자동차 예산</title>
-  <link rel="icon" type="image/svg+xml" href="./public/favicon.svg">
-  <link rel="stylesheet" href="./src/styles.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">본문으로 이동</a>
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="차분히 홈"><span class="brand-icon" aria-hidden="true">c<span>.</span></span><span>차분히<span class="brand-en">CHABUNHI</span></span></a>
-    <nav aria-label="주요 메뉴"><a href="#calculator">내 차 예산 찾기</a><a href="#how-it-works">계산 기준</a><button class="text-button" id="design-open">디자인 3종 <span aria-hidden="true">↗</span></button></nav>
-    <span class="header-note"><span class="status-dot"></span> 나다운 드라이브의 시작</span>
-  </header>
-  <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy"><div class="eyebrow"><span></span> DREAM BIG. DRIVE WISE.</div>
-        <h1 id="hero-title">드림카는 정했는데,<br><span>내 삶에도 맞을까?</span></h1>
-        <p>연봉 하나로 결정하기엔, 당신의 삶은 더 복잡하니까.<br>자산부터 월 지출까지. 타고 싶은 차와 편하게 탈 수 있는 차 사이의 답.</p>
-        <a class="button primary" href="#calculator">내 차 예산 알아보기 <span aria-hidden="true">↗</span></a>
-        <div class="hero-meta"><span>약 3분 · 가입 없이</span><span class="divider"></span><span>금융정보 서버 전송 없음</span></div>
-      </div>
-      <div class="hero-visual">
-        <div class="visual-word" aria-hidden="true">YOUR NEXT<br>CHAPTER.</div>
-        <img class="hero-car" src="./public/car.svg" alt="어두운 쇼룸에 놓인 실버 스포츠 쿠페 일러스트" width="960" height="600" fetchpriority="high">
-        <div class="visual-caption"><span>DESIGNED AROUND YOUR LIFE</span><span>01 / YOUR GARAGE</span></div>
-        <div class="floating-note"><span class="note-icon">↗</span><div><small>중요한 건 차값 그다음</small><strong>사는 순간보다, 타는 매일.</strong></div></div>
-      </div>
-    </section>
-    <div class="feature-strip" aria-label="계산에 반영하는 요소">
-      <span><b>01</b> 소득과 생활비</span><span><b>02</b> 자산과 비상금</span><span><b>03</b> 가족 지원과 부채</span><span><b>04</b> 유지비와 미래 계획</span>
-    </div>
-    <section id="calculator" class="calculator-section" aria-labelledby="calculator-title">
-      <div class="section-heading"><div><div class="eyebrow">THE REALITY CHECK</div><h2 id="calculator-title">당신의 차고를 열어볼까요?</h2></div><p>숫자는 솔직하게.<br>선택은 당신답게.</p></div>
-      <div class="calculator-layout">
-        <div class="wizard">
-          <div class="step-nav" role="group" aria-label="입력 단계">
-            <button type="button" class="step-button active" data-step="0" aria-current="step"><span>01</span> 나의 일상</button>
-            <button type="button" class="step-button" data-step="1"><span>02</span> 나의 자산</button>
-            <button type="button" class="step-button" data-step="2"><span>03</span> 나의 드림카</button>
-            <button type="button" class="step-button" data-step="3"><span>04</span> 타는 매일</button>
-          </div>
-          <form id="budget-form" novalidate>
-            <div id="step-content"></div>
-            <div id="form-error" class="form-error" role="alert" hidden></div>
-            <div class="wizard-actions"><button type="button" class="button secondary" id="previous-step">이전</button><span id="step-count">1 / 4</span><button type="submit" class="button primary" id="next-step">자산 살펴보기 <span aria-hidden="true">→</span></button></div>
-          </form>
-          <div class="privacy-note"><span aria-hidden="true">◈</span> 입력값은 이 탭 안에서만 계산해요. 새로고침하면 초기화돼요.</div>
-        </div>
-        <aside class="live-panel" aria-label="실시간 예산 미리보기">
-          <div class="panel-top"><span class="eyebrow">YOUR GARAGE</span><span class="live-badge"><i></i> LIVE</span></div>
-          <p class="muted">지금 입력값으로 본 여유 예산</p><div class="budget-number" id="live-price">—</div>
-          <div class="budget-range" aria-hidden="true"><span></span></div>
-          <div class="range-label"><span>일상은 지키고</span><span>드림카는 가까이</span></div>
-          <div class="live-metrics" id="live-metrics"></div>
-          <div class="live-insight" id="live-insight"></div>
-          <p class="tiny">입력 중인 가정에 따른 참고 예산이에요. 할부 승인 한도와는 달라요.</p>
-        </aside>
-      </div>
-      <div class="presets"><span>가볍게 둘러보고 싶다면</span><button type="button" data-preset="starter">첫 차 준비 중 ↗</button><button type="button" data-preset="home">내 집 마련도 함께 ↗</button><button type="button" data-preset="cruise">여유로운 드라이버 ↗</button><button type="button" id="reset-inputs">초기화</button></div>
-      <p class="example-note" id="example-note">현재는 예시 값이 들어 있어요. 내 숫자로 바꾸면 나만의 결과가 됩니다.</p>
-    </section>
-    <section id="results" class="results-section" aria-labelledby="result-title" hidden></section>
-    <section id="how-it-works" class="method-section" aria-labelledby="method-title">
-      <div class="section-heading"><div><div class="eyebrow">BEHIND THE NUMBERS</div><h2 id="method-title">설렘에도, 기준은 필요하니까.</h2></div><p>막연한 ‘연봉의 몇 배’ 대신<br>실제로 감당할 수 있는 일상을 계산해요.</p></div>
-      <div class="method-grid"><article><span class="method-index">01 / CASH FLOW</span><h3>월급에서, 내 삶을 먼저.</h3><p>생활비·대출 상환·저축을 제외한 여유 자금과 소득 대비 차량 지출 기준을 함께 봐요.</p></article><article><span class="method-index">02 / SAFETY FIRST</span><h3>자산이 모두 차값은 아니죠.</h3><p>비상금과 지켜야 할 목표자금은 남겨둬요. 부모님 자산 대신 확정된 지원금만 더해요.</p></article><article><span class="method-index">03 / TOTAL COST</span><h3>할부금 밖의 비용까지.</h3><p>보험·연료·주차·정비·세금에 감가상각과 이자를 더해 보유기간의 실제 비용을 살펴봐요.</p></article></div>
-      <details class="method-detail"><summary>계산식과 가정 자세히 보기 <span>＋</span></summary><div>
-        <p><b>월 차량 예산</b> = 소득 × 설정 비율과 (소득 − 생활비 − 주거비 − 부채 상환 − 가족 지출 − 목표 저축) × 70% 중 작은 금액. 빠듯한 상한선은 여유 자금 100%와 소득 비율 +10%p(최대 50%) 중 작은 금액입니다. 이 비율은 서비스의 계획용 가정이며 공식 금융 기준이 아닙니다.</p>
-        <p><b>초기자금</b> = 비상금과 목표자금을 제외한 가용자산 × 차량 투입 비율 + 확정 지원금 + 기존 차 순매각액. 부동산과 부모님 총자산은 구매 예산에 더하지 않습니다. 부채 잔액은 순자산에, 실제 상환액은 월 지출에 반영합니다.</p>
-        <p><b>차량 가격</b> = (초기자금 + 감당 가능한 월 할부금의 현재가치 − 등록 부대비용) ÷ (1 + 입력 취득비용률). 원리금균등상환을 가정합니다. 유지비조차 감당하기 어려우면 권장 예산은 0원으로 표시합니다.</p>
-        <p><b>보유기간 비용</b> = 차량 가격 − 예상 중고 매각가 + 취득·등록비 + 보유기간 발생 이자 + 유지비. 원금 상환과 감가상각을 중복 계산하지 않습니다. 매각 시 남은 대출은 별도로 표시합니다.</p>
-        <p>세금·보험료·가격·연비·잔존가치 기본값은 계산 예시입니다. 실제 견적, 세제 감면, 보험 경력, 운전 환경을 반영해 수정하세요. 연봉 추정 모드는 입력한 수령 비율을 단순 적용하며 세금 계산기가 아닙니다. 금융·세무 상담이나 대출 승인을 대신하지 않습니다.</p>
-        <p>총비용 구성 참고: <a href="https://www.consumerfinance.gov/ask-cfpb/how-much-can-i-afford-to-borrow-for-a-car-or-auto-loan-en-751/" target="_blank" rel="noopener noreferrer">CFPB 자동차 예산 안내 ↗</a></p>
-      </div></details>
-    </section>
-  </main>
-  <footer><a class="brand" href="#">차분히<span class="brand-en">CHABUNHI</span></a><p>좋은 차를 넘어, 좋은 일상으로.</p><div><button class="text-button" id="privacy-open">개인정보 안내</button><a href="#how-it-works">계산 기준</a><span>© 2026 CHABUNHI</span></div></footer>
-  <dialog id="design-dialog"><div class="dialog-top"><div><div class="eyebrow">CHOOSE YOUR DIRECTION</div><h2>같은 계산, 세 가지 분위기.</h2></div><button class="icon-button dialog-close" aria-label="닫기">×</button></div><div class="design-grid">
-    <article class="design-card clean"><div class="design-mini"><span>MY CAR BUDGET</span><b>일상을 지키는<br>합리적인 선택.</b><div class="mini-number">2,850 <small>만 원</small></div><i></i></div><h3>01. 차분한 금융 앱</h3><p>명료한 숫자, 화이트와 블루.</p><a href="https://toss.im" target="_blank" rel="noopener noreferrer">토스 레퍼런스 ↗</a><button class="button secondary" data-theme="clean">이 분위기로 보기</button></article>
-    <article class="design-card playful"><div class="design-mini"><span>WHAT'S YOUR DRIVE?</span><b>드림카는 풀옵션.<br>내 통장도 그럴까?</b><div class="mini-number">VROOM <small>↗</small></div><i></i></div><h3>02. 자동차 성향 테스트</h3><p>재치 있는 카드, 크림과 라임.</p><a href="https://www.16personalities.com/ko" target="_blank" rel="noopener noreferrer">16Personalities 레퍼런스 ↗</a><button class="button secondary" data-theme="playful">이 분위기로 보기</button></article>
-    <article class="design-card showroom"><div class="design-mini"><span>DREAM BIG. DRIVE WISE.</span><b>내 삶의,<br>다음 드라이브.</b><div class="mini-number">YOUR <small>GARAGE.</small></div><i></i></div><h3>03. 프리미엄 드림카 쇼룸</h3><p>차콜과 실버, 자동차가 주인공.</p><a href="https://www.porsche.com/korea/ko/" target="_blank" rel="noopener noreferrer">포르쉐 레퍼런스 ↗</a><button class="button primary" data-theme="showroom">선택한 디자인으로 보기</button></article>
-  </div><p class="tiny">화면은 이 서비스만의 디자인입니다. 레퍼런스 브랜드와 제휴 관계는 없습니다.</p></dialog>
-  <dialog id="privacy-dialog"><div class="dialog-top"><h2>숫자는 이 탭 안에.</h2><button class="icon-button dialog-close" aria-label="닫기">×</button></div><p>연봉, 지출, 자산, 가족 정보는 브라우저 메모리에서 계산하며 앱 서버에 전송하거나 저장하지 않습니다. 새로고침 또는 탭 종료 시 입력값이 사라집니다.</p><p>공유 링크와 이미지는 유형 이름만 포함하며 재무 입력값을 담지 않습니다. 외부 상품 링크를 직접 누르면 쿠팡으로 이동하며 해당 서비스의 개인정보 및 쿠키 정책이 적용됩니다.</p><p>이 버전에는 외부 분석·광고 추적 스크립트가 없습니다. 호스팅 제공자는 일반적인 접속 로그를 처리할 수 있습니다.</p></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <noscript><div class="noscript">이 계산기는 브라우저에서 계산하기 위해 JavaScript가 필요합니다.</div></noscript>
-  <script type="module" src="./src/app.js"></script>
-</body>
-</html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>내 연봉으로 무슨 차 탈 수 있을까? | 차분히</title>
+<meta name="description" content="연봉, 월 지출, 내 자산, 부모님 자산. 네 가지만 입력하고 아반떼부터 BMW 5시리즈, 제네시스 G80, 포르쉐까지 나에게 맞는 차를 추천받으세요."><meta name="theme-color" content="#101113"><meta name="referrer" content="strict-origin-when-cross-origin"><meta property="og:title" content="내 연봉으로 무슨 차 탈 수 있을까?"><meta property="og:description" content="아반떼? BMW 5시리즈? 포르쉐? 숫자 4개로 내 차를 찾아보세요."><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><link rel="icon" href="./public/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./src/styles.css?v=2">
+</head><body>
+<a class="skip" href="#car-form">차 추천 입력으로 이동</a>
+<header class="site-header"><a class="logo" href="#" aria-label="차분히 처음으로"><span class="logo-mark" aria-hidden="true">c<span>·</span></span>차분히<small>연봉별 자동차 추천</small></a><nav aria-label="주요 메뉴"><a href="#examples">추천 예시</a><button type="button" data-open="method-dialog">추천 기준</button><a class="header-cta" href="#car-form">내 차 찾기 <span>↗</span></a></nav></header>
+<main><div id="landing"><section class="hero">
+<div class="hero-story"><p class="eyebrow"><span></span>숫자 4개면 충분해요</p><h1>내 연봉으로<br><em>무슨 차</em><br>탈 수 있을까?</h1><p class="hero-sub">아반떼부터 BMW, 포르쉐까지.<br>지금 내 형편에 맞는 차를 알려드려요.</p><div class="hero-image"><img src="./public/showroom.png" width="1536" height="1024" alt="어두운 스튜디오에 놓인 실버 스포츠카 AI 참고 이미지" fetchpriority="high"><span class="photo-note">PORSCHE 911 · AI 참고 이미지</span></div></div>
+<div class="input-card" id="calculator"><div class="form-heading"><span class="step-pill">30초면 입력 끝</span><h2>나는 어디까지 가능할까?</h2><p>대략적인 금액으로 시작해도 괜찮아요.</p></div><form id="car-form" novalidate>
+<div class="money-field"><div class="field-top"><label for="salary"><span>01</span>연봉</label><small>세전 기준</small></div><div class="input-line"><input id="salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000" step="any" value="5000" required aria-describedby="salary-readable"><span>만 원</span></div><span class="readable" id="salary-readable">5,000만 원</span></div>
+<div class="money-field"><div class="field-top"><label for="expenses"><span>02</span>월 지출</label><small>생활비·주거비·대출 상환</small></div><div class="input-line"><input id="expenses" name="expenses" type="number" inputmode="numeric" min="0" max="100000" step="any" value="150" required aria-describedby="expenses-readable"><span>만 원</span></div><span class="readable" id="expenses-readable">매달 150만 원</span></div>
+<div class="money-field"><div class="field-top"><label for="assets"><span>03</span>내 자산</label><small>대출을 뺀 예금·투자금</small></div><div class="input-line"><input id="assets" name="assets" type="number" inputmode="numeric" min="0" max="100000000" step="any" value="3000" required aria-describedby="assets-readable"><span>만 원</span></div><span class="readable" id="assets-readable">3,000만 원</span></div>
+<div class="money-field"><div class="field-top"><label for="parents"><span>04</span>부모님 자산</label><small>모르면 0 · 지원 가정 비교용</small></div><div class="input-line"><input id="parents" name="parents" type="number" inputmode="numeric" min="0" max="100000000" step="any" value="100000" required aria-describedby="parents-readable"><span>만 원</span></div><span class="readable" id="parents-readable">10억 원</span></div>
+<p id="form-error" class="form-error" role="alert" hidden></p><button class="recommend-button" type="submit">내 차 추천받기 <span aria-hidden="true">↗</span></button><p class="private-note"><span aria-hidden="true">⌑</span> 입력한 금액은 서버에 저장하지 않아요.</p></form></div></section>
+<section class="examples" id="examples" aria-labelledby="examples-title"><div class="section-title"><div><p class="eyebrow">이런 결과가 나와요</p><h2 id="examples-title">아반떼일까, 포르쉐일까.</h2></div><p>예시를 누르면 바로 추천 결과를 볼 수 있어요.</p></div><div class="example-grid" id="example-grid"></div><p class="example-disclaimer">위 금액은 추천 흐름을 보여주는 가상 예시예요. 같은 연봉이어도 지출과 자산에 따라 결과가 달라져요.</p></section></div>
+<section id="results" class="results" hidden aria-labelledby="result-title"></section>
+<section class="quick-faq"><h2>딱 이 정도만 알아두세요.</h2><details><summary>부모님 자산이 많으면 비싼 차를 추천하나요?<span>＋</span></summary><p>기본 결과는 내 소득과 자산으로만 계산해요. ‘부모님 지원 가정’을 누르면 부모님 자산의 2%, 최대 1억 원을 지원받는 경우를 비교할 수 있어요. 실제 지원을 받는다는 뜻은 아니에요.</p></details><details><summary>왜 이 차를 추천하는 건가요?<span>＋</span></summary><p>연봉에서 추정한 월 수입과 지출, 차량에 쓸 수 있는 자산을 함께 봐요. 차값뿐 아니라 보험·연료·주차·정비비도 반영해요. <button class="text-link" data-open="method-dialog">계산 기준 보기</button></p></details><details><summary>추천 가격이면 바로 살 수 있나요?<span>＋</span></summary><p>표시한 차량가는 모델 간 비교를 위한 가정이에요. 실제 견적은 옵션과 할인, 중고차 상태에 따라 달라요. 구매 전에는 제조사나 판매처에서 확인해주세요.</p></details></section></main>
+<footer><a class="logo" href="#">차분히</a><p>연봉별 자동차 추천</p><div><button data-open="method-dialog">추천 기준</button><button data-open="privacy-dialog">개인정보 안내</button><span>© 2026 CHABUNHI</span></div></footer>
+<dialog id="method-dialog"><div class="dialog-heading"><h2>추천은 이렇게 계산해요.</h2><button class="close" aria-label="닫기">×</button></div><ol class="method-list"><li><b>월 수입</b><span>세전 연봉의 80% ÷ 12로 간편 추정해요.</span></li><li><b>초기 구매 자금</b><span>내 자산에서 6개월치 지출을 남기고, 나머지의 35%를 차에 써요.</span></li><li><b>월 차량 지출</b><span>월 수입의 25%와 지출 후 남은 돈의 50% 중 작은 금액을 기준으로 해요.</span></li><li><b>차값 + 유지비</b><span>부족한 차값은 60개월·연 6% 할부로 계산하고, 차종별 유지비 가정을 더해요. 취득·등록비는 차값의 7% + 30만 원으로 가정해요.</span></li><li><b>부모님 지원</b><span>기본 결과에는 반영하지 않아요. 지원 가정 모드에서만 부모님 자산의 2%, 최대 1억 원을 순수 지원금으로 더해요.</span></li></ol><p class="fine-print">공식 금융·세무 기준이 아닌 간편 비교용 가정입니다. 자산에 부동산·연금 등 바로 쓸 수 없는 자산은 넣지 마세요. 유지비는 보험·연료·세금·주차·정비의 월평균 가정입니다. 증여 관련 비용은 지원금에 포함하지 않았습니다.</p><details class="source-details"><summary>차종 확인 출처와 가격 안내</summary><p>차량가는 최신 공식 판매가가 아닌 비교용 예산입니다. 옵션 여유를 둔 가정값을 사용하며, 중고차는 특정 매물을 보장하지 않습니다.</p><a href="https://www.genesis.com/kr/ko/models/g80" target="_blank" rel="noopener noreferrer">제네시스 G80 공식 모델 ↗</a><a href="https://www.bmw.co.kr/ko/all-models/5-series/sedan/bmw-5-series-sedan-overview.html" target="_blank" rel="noopener noreferrer">BMW 5시리즈 공식 모델 ↗</a><a href="https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-avante/price" target="_blank" rel="noopener noreferrer">현대 아반떼 공식 가격 ↗</a><a href="https://www.porsche.com/korea/ko/models/911/" target="_blank" rel="noopener noreferrer">포르쉐 911 공식 모델 ↗</a><p>차종 확인: 2026년 10월 17일. 제조사·매체 대표 이미지와 AI 참고 이미지가 사용되며, 실제 연식·옵션과 다를 수 있습니다. 브랜드와 제휴한 서비스가 아닙니다.</p></details></dialog>
+<dialog id="privacy-dialog"><div class="dialog-heading"><h2>내 금액은 나만 볼 수 있어요.</h2><button class="close" aria-label="닫기">×</button></div><p>입력한 네 가지 금액은 현재 브라우저 메모리에서만 계산해요. 서버에 전송하거나 저장하지 않고, 새로고침하면 초기화돼요.</p><p>공유 카드와 링크에는 추천 차종과 지원 가정 여부만 포함해요. 금액과 가족 재산은 보내지 않아요. 외부 글꼴·차량 이미지를 불러오거나 제조사·상품 링크를 누를 때 해당 사이트로 연결될 수 있어요.</p><p>호스팅 제공자는 일반 접속 기록을 처리할 수 있습니다. 이 버전에는 별도 광고·분석 추적 스크립트가 없습니다.</p></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><noscript><div class="no-script">차 추천을 보려면 브라우저의 JavaScript를 켜주세요.</div></noscript><script type="module" src="./src/app.js?v=2"></script></body></html>
