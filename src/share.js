@@ -2,7 +2,7 @@ export function publicShare(result, url) {
   // Allowlist: raw inputs and monetary values never enter share data.
   const cleanUrl = new URL(url); cleanUrl.search = ''; cleanUrl.hash = '';
   const shareable = ['https:', 'http:'].includes(cleanUrl.protocol) && !['localhost', '127.0.0.1', '[::1]'].includes(cleanUrl.hostname);
-  const name = result.best?.name || '지금은 구매 보류';
+  const name = result.best?.name || '현재 예산에 맞는 차종 없음';
   const mode = result.family ? '부모님 지원 가정' : '내 소득·자산 기준';
   return {title:`내 추천 차는 ${name} | 차분히`,text:`내 형편에 맞는 차는 ${name}!\n${mode}으로 계산했어요.\n너는 아반떼? BMW? 포르쉐?`,...(shareable ? {url:cleanUrl.href} : {})};
 }
@@ -15,7 +15,7 @@ export async function saveShareCard(result) {
   c.fillStyle='#a6a8ae';c.font='32px sans-serif';c.fillText(result.family?'부모님 지원을 받는다면':'내 소득과 자산으로',80,260);
   c.fillStyle='#fff';c.font='bold 55px sans-serif';c.fillText('내 추천 차는',80,365);
   c.fillStyle='#ff633c';c.font='bold 85px sans-serif';
-  wrap(c,result.best?.name||'구매 보류',920).forEach((line,i)=>c.fillText(line,80,500+i*110));
+  wrap(c,result.best?.name||'차종 없음',920).forEach((line,i)=>c.fillText(line,80,500+i*110));
   c.fillStyle='#a6a8ae';c.font='28px sans-serif';c.fillText(result.best?.trim||'지출과 비상금부터 확인하기',80,745);
   c.strokeStyle='#414247';c.lineWidth=2;c.beginPath();c.moveTo(80,850);c.lineTo(1000,850);c.stroke();
   c.fillStyle='#fff';c.font='bold 47px sans-serif';c.fillText('너는 무슨 차 나와?',80,990);
