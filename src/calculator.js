@@ -1,3 +1,4 @@
+import { CAR_MEDIA } from './car-media.js?v=5';
 // Money is in 만원. Planning assumptions, not lending or tax rules.
 export const ASSUMPTIONS = Object.freeze({
  netRate: .8, reserveMonths: 6, reserveBuildMonths: 24,
@@ -7,18 +8,18 @@ export const ASSUMPTIONS = Object.freeze({
 export const DEFAULTS=Object.freeze({salary:5000,expenses:150,assets:3000,parents:0});
 export const LIMITS=Object.freeze({salary:1000000,expenses:100000,assets:100000000,parents:100000000});
 const ORIGINAL_CARS=[
- {id:'morning-used',brand:'KIA',name:'기아 모닝',trim:'가솔린 · 중고',price:800,running:22,tier:'중고 경차',image:null,official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
- {id:'ray-used',brand:'KIA',name:'기아 레이',trim:'가솔린 · 중고',price:1100,running:24,tier:'중고 경차',image:null,official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
- {id:'k3',brand:'KIA',name:'기아 K3',trim:'1.6 가솔린 · 중고',price:1400,running:27,tier:'첫 차',image:'https://cdn.cartvnews.com/news/photo/202010/608180_367858_1555.jpg',source:'https://www.cartvnews.com/news/articleView.html?idxno=608180',official:'https://cpo.kia.com/',note:'중고차는 연식·주행거리·사고 이력에 따라 가격이 달라져요.',pitch:'첫 차는 가볍게. 남는 돈은 저축으로.'},
- {id:'avante-used',brand:'HYUNDAI',name:'현대 아반떼',trim:'1.6 가솔린 · 중고',price:1800,running:28,tier:'첫 차',image:'https://wimg.mk.co.kr/news/cms/202511/07/news-p.v1.20251107.2ad89b517cdd4b188e49aa22cdf02d69_P1.jpg',source:'https://www.mk.co.kr/en/business/11462667',official:'https://certified.hyundai.com/',note:'사진은 대표 이미지이며 실제 중고 매물과 달라요.',pitch:'부담은 낮추고, 출퇴근은 편하게.'},
- {id:'avante',brand:'HYUNDAI',name:'현대 아반떼',trim:'1.6 가솔린 · 신차',price:2600,running:28,tier:'준중형',image:'https://wimg.mk.co.kr/news/cms/202511/07/news-p.v1.20251107.2ad89b517cdd4b188e49aa22cdf02d69_P1.jpg',source:'https://www.mk.co.kr/en/business/11462667',official:'https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-avante/price',note:'연식과 트림에 따라 디자인·가격이 달라질 수 있어요.',pitch:'새 차를 타면서 저축도 이어갈 수 있는 선택.'},
- {id:'k5',brand:'KIA',name:'기아 K5',trim:'2.0 가솔린 · 신차',price:3400,running:36,tier:'중형',image:null,official:'https://www.kia.com/kr/vehicles/k5/price',pitch:'출퇴근도 주말 여행도, 넉넉한 중형 세단.'},
- {id:'grandeur',brand:'HYUNDAI',name:'현대 그랜저',trim:'2.5 가솔린 · 신차',price:4500,running:43,tier:'준대형',image:null,official:'https://www.hyundai.com/kr/ko/e/vehicles/grandeur/price',pitch:'승차감과 실내 공간을 한 단계 높일 때.'},
- {id:'g80',brand:'GENESIS',name:'제네시스 G80',trim:'2.5 터보 · 신차',price:6500,running:55,tier:'프리미엄',image:'https://dams.hyundai-autoever.com/cdn-cgi/image/width%3D1440%2Cheight%3D720%2Cfit%3Dcover%2Cquality%3D85%2Cformat%3Dauto/v1/openapi/hmg-presigned-url/50534b313031303030303030303030303039313334/genesis-g80-2027-black-exterior-detail-front-large.png',source:'https://www.genesis.com/kr/ko/models/g80',official:'https://www.genesis.com/kr/ko/models/g80',note:'대표 이미지는 G80 블랙이며 추천 트림과 외관이 다를 수 있어요.',pitch:'편안한 승차감과 고급스러운 실내가 좋다면.'},
- {id:'bmw5',brand:'BMW',name:'BMW 5시리즈',trim:'520i · 신차',price:7300,running:55,tier:'프리미엄',image:'https://bmw.scene7.com/is/image/BMW/g60_ice_stage_ext-loop-alternative_dsk_sl_de?fmt=webp&qlt=80&wid=1024',source:'https://www.bmw.co.kr/ko/all-models/5-series/sedan/bmw-5-series-sedan-overview.html',official:'https://www.bmw.co.kr/ko/all-models/5-series/sedan/bmw-5-series-sedan-overview.html',note:'대표 이미지의 옵션·색상은 실제 견적과 다를 수 있어요.',pitch:'운전하는 재미까지 챙기고 싶은 당신에게.'},
- {id:'macan',brand:'PORSCHE',name:'포르쉐 마칸',trim:'Electric · 신차',price:11500,running:65,tier:'포르쉐',image:null,official:'https://www.porsche.com/korea/ko/models/macan/',pitch:'포르쉐를 매일 타고 싶다면, 실용적인 SUV부터.'},
- {id:'cayenne',brand:'PORSCHE',name:'포르쉐 카이엔',trim:'기본형 · 신차',price:15000,running:90,tier:'포르쉐',image:null,official:'https://www.porsche.com/korea/ko/models/cayenne/',pitch:'가족과 함께 타는 차에도 포르쉐를 원한다면.'},
- {id:'911',brand:'PORSCHE',name:'포르쉐 911',trim:'Carrera · 신차',price:20000,running:100,tier:'드림카',image:'./public/showroom.png',official:'https://www.porsche.com/korea/ko/models/911/',note:'AI로 제작한 참고 이미지이며 실제 사양과 다를 수 있어요.',pitch:'이제 911을 구체적으로 알아볼 만한 조건이에요.'}
+ {id:'morning-used',brand:'KIA',name:'기아 모닝',trim:'가솔린 · 중고',price:800,running:22,tier:'중고 경차',official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
+ {id:'ray-used',brand:'KIA',name:'기아 레이',trim:'가솔린 · 중고',price:1100,running:24,tier:'중고 경차',official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
+ {id:'k3',brand:'KIA',name:'기아 K3',trim:'1.6 가솔린 · 중고',price:1400,running:27,tier:'첫 차',official:'https://cpo.kia.com/',note:'중고차는 연식·주행거리·사고 이력에 따라 가격이 달라져요.',pitch:'첫 차는 가볍게. 남는 돈은 저축으로.'},
+ {id:'avante-used',brand:'HYUNDAI',name:'현대 아반떼',trim:'1.6 가솔린 · 중고',price:1800,running:28,tier:'첫 차',official:'https://certified.hyundai.com/',note:'사진은 대표 이미지이며 실제 중고 매물과 달라요.',pitch:'부담은 낮추고, 출퇴근은 편하게.'},
+ {id:'avante',brand:'HYUNDAI',name:'현대 아반떼',trim:'1.6 가솔린 · 신차',price:2600,running:28,tier:'준중형',official:'https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-avante/price',note:'연식과 트림에 따라 디자인·가격이 달라질 수 있어요.',pitch:'새 차를 타면서 저축도 이어갈 수 있는 선택.'},
+ {id:'k5',brand:'KIA',name:'기아 K5',trim:'2.0 가솔린 · 신차',price:3400,running:36,tier:'중형',official:'https://www.kia.com/kr/vehicles/k5/price',pitch:'출퇴근도 주말 여행도, 넉넉한 중형 세단.'},
+ {id:'grandeur',brand:'HYUNDAI',name:'현대 그랜저',trim:'2.5 가솔린 · 신차',price:4500,running:43,tier:'준대형',official:'https://www.hyundai.com/kr/ko/e/vehicles/grandeur/price',pitch:'승차감과 실내 공간을 한 단계 높일 때.'},
+ {id:'g80',brand:'GENESIS',name:'제네시스 G80',trim:'2.5 터보 · 신차',price:6500,running:55,tier:'프리미엄',official:'https://www.genesis.com/kr/ko/models/g80',note:'대표 이미지는 실제 연식·트림·옵션과 다를 수 있어요.',pitch:'편안한 승차감과 고급스러운 실내가 좋다면.'},
+ {id:'bmw5',brand:'BMW',name:'BMW 5시리즈',trim:'520i · 신차',price:7300,running:55,tier:'프리미엄',official:'https://www.bmw.co.kr/ko/all-models/5-series/sedan/bmw-5-series-sedan-overview.html',note:'대표 이미지의 옵션·색상은 실제 견적과 다를 수 있어요.',pitch:'운전하는 재미까지 챙기고 싶은 당신에게.'},
+ {id:'macan',brand:'PORSCHE',name:'포르쉐 마칸',trim:'Electric · 신차',price:11500,running:65,tier:'포르쉐',official:'https://www.porsche.com/korea/ko/models/macan/',pitch:'포르쉐를 매일 타고 싶다면, 실용적인 SUV부터.'},
+ {id:'cayenne',brand:'PORSCHE',name:'포르쉐 카이엔',trim:'기본형 · 신차',price:15000,running:90,tier:'포르쉐',official:'https://www.porsche.com/korea/ko/models/cayenne/',pitch:'가족과 함께 타는 차에도 포르쉐를 원한다면.'},
+ {id:'911',brand:'PORSCHE',name:'포르쉐 911',trim:'Carrera · 신차',price:20000,running:100,tier:'드림카',official:'https://www.porsche.com/korea/ko/models/911/',note:'대표 이미지는 실제 연식·트림·옵션과 다를 수 있어요.',pitch:'이제 911을 구체적으로 알아볼 만한 조건이에요.'}
 ];
 
 // Price/running amounts are explicit planning scenarios, not live dealer quotes.
@@ -99,22 +100,26 @@ const MORE_CARS = [
  ['revuelto','LAMBORGHINI','람보르기니 레부엘토','V12 하이브리드 · 주문 사양',85000,400,'슈퍼카'],
  ['phantom','ROLLSROYCE','롤스로이스 팬텀','Extended · 주문 사양',110000,420,'럭셔리 세단']
 ];
-const MEDIA = {
- phantom:{image:'https://www.rolls-roycemotorcars.com/content/dam/rrmc/marketUK/rollsroycemotorcars_com/phantom-100/page-properties/side-nav/D-SIDE-NAV-PHANTOM-EXT-100.jpg/jcr%3Acontent/renditions/cq5dam.web.1920.jpeg',source:'https://www.rolls-roycemotorcars.com/en_US/showroom/phantom-extended.html',official:'https://www.rolls-roycemotorcars.com/en_US/showroom/phantom-extended.html'},
- revuelto:{image:'https://images.carexpert.com.au/cms/v1/media/2023-03-2024-lamborghini-revuelto-29.jpg',source:'https://www.carexpert.com.au/car-news/lamborghini-revuelto-hybrid-v12-flagship-revealed',official:'https://www.lamborghini.com/en-en/models/revuelto'},
- '12cilindri':{image:'https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/ferrari_12cilindri_red_front.jpg?itok=Leddtf1w',source:'https://www.autocar.co.uk/car-news/new-cars/ferrari-12cilindri-priced-%C2%A3336500-spider-adds-%C2%A330k',official:'https://www.ferrari.com/ko-KR/auto/ferrari-12cilindri'},
- bmwi7:{image:'https://mediapool.bmwgroup.com/cache/P9/202304/P90500805/P90500805-the-bmw-i7-m70-xdrive-04-2023-2249px.jpg',source:'https://www.press.bmwgroup.com/global/photo/detail/P90500805/the-bmw-i7-m70-xdrive-04/2023',official:'https://www.bmw.co.kr/ko/all-models/i-series/i7/bmw-i7-limousine.html'}
+const MODEL_OVERRIDES = {
+ phantom:{official:'https://www.rolls-roycemotorcars.com/en_US/showroom/phantom-extended.html'},
+ revuelto:{official:'https://www.lamborghini.com/en-en/models/revuelto'},
+ '12cilindri':{official:'https://www.ferrari.com/ko-KR/auto/ferrari-12cilindri'},
+ bmwi7:{official:'https://www.bmw.co.kr/ko/all-models/i-series/i7/bmw-i7-limousine.html'}
 };
 const BODY = {'morning-used':'경차','ray-used':'경차',macan:'전기 SUV',cayenne:'SUV','911':'스포츠카'};
 export const CARS = [
  ...ORIGINAL_CARS.map(car=>({...car,body:BODY[car.id]||'세단'})),
  ...MORE_CARS.map(([id,brand,name,trim,price,running,body])=>({
-  id,brand,name,trim,price,running,body,tier:body,image:null,
+  id,brand,name,trim,price,running,body,tier:body,
   official:trim.includes('중고')&&brand==='HYUNDAI'?'https://certified.hyundai.com/':MODEL_SOURCES[brand],
   note:'대표 이미지·연식·옵션은 실제 판매 사양과 다를 수 있어요.',
-  ...MEDIA[id]
+  ...MODEL_OVERRIDES[id]
  }))
-].sort((a,b)=>a.price-b.price||a.id.localeCompare(b.id));
+].map(car=>{
+ const media=CAR_MEDIA[car.id];
+ if(!media?.image||!media.source)throw new Error(`Missing model image: ${car.id}`);
+ return {...car,...media};
+}).sort((a,b)=>a.price-b.price||a.id.localeCompare(b.id));
 export const CATALOGUE_SIZE = new Set(CARS.map(car=>car.name)).size;
 
 export function normalize(input = {}) {
