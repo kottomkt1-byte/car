@@ -96,7 +96,7 @@ magick public/mystery-box.png -strip -quality 82 public/mystery-box.webp
 
 ## 카카오톡 공유 설정
 
-`src/kakao.js`의 `KAKAO_CONFIG.javascriptKey`에 운영자의 카카오 **JavaScript 키**를 넣고 다시 빌드합니다. 현재 키는 미입력 상태이므로 전용 버튼을 숨기고 기존 공유 기능을 유지합니다. Admin/REST API 키를 넣으면 안 됩니다. JavaScript 키는 브라우저에 공개되는 식별자입니다.
+`src/kakao.js`의 `KAKAO_CONFIG.javascriptKey`에 운영자의 카카오 **JavaScript 키**를 넣고 다시 빌드합니다. 운영자가 제공한 JavaScript 키를 연결했습니다. 키가 비어 있는 배포에서는 전용 버튼을 숨기고 기존 공유 기능을 유지합니다. Admin/REST API 키를 넣으면 안 됩니다. JavaScript 키는 브라우저에 공개되는 식별자입니다.
 
 카카오디벨로퍼스의 해당 앱에서 다음 두 설정에 `https://clinquant-basbousa-3ff2ce.netlify.app`을 등록합니다.
 
@@ -105,7 +105,7 @@ magick public/mystery-box.png -strip -quality 82 public/mystery-box.webp
 
 설정 후 추천 결과 아래 노란 **카카오톡으로 공유** 버튼이 나타납니다. 공식 SDK를 결과 표시 후에만 불러와 초기 화면에서는 추가 SDK 요청이 없습니다. SDK가 준비된 뒤 사용자의 클릭에서 바로 공유 창을 엽니다. 로딩 오류/시간 초과는 다시 연결할 수 있고 일반 공유·이미지 저장도 유지합니다. 본인 채팅방에서 직접 전송을 확인해야 키와 도메인 설정까지 검증됩니다. 사용자 확인 없이 메시지를 자동 전송하지 않습니다.
 
-텍스트 메시지에는 예산에 맞는 최대 세 대의 차 이름과 사이트 링크만 넣습니다. 금액·트림 가격·예산 초과 후보는 제외하고, 1~2대만 맞으면 실제 대수를 표시합니다. 웹 링크는 받는 사람이 자신의 조건으로 계산하는 첫 화면으로 연결됩니다. 키 입력 전에는 실제 카카오 전송 검증을 완료할 수 없습니다.
+텍스트 메시지에는 예산에 맞는 최대 세 대의 차 이름과 사이트 링크만 넣습니다. 금액·트림 가격·예산 초과 후보는 제외하고, 1~2대만 맞으면 실제 대수를 표시합니다. 웹 링크는 받는 사람이 자신의 조건으로 계산하는 첫 화면으로 연결됩니다. 코드·공유 데이터·버튼 동작은 자동 검사했으며, 카카오 콘솔 도메인 등록과 실제 카카오톡 전송은 운영자 확인이 필요합니다.
 
 - [JavaScript 설정 공식 안내](https://developers.kakao.com/docs/ko/javascript/getting-started)
 - [기본 메시지 템플릿과 링크 설정](https://developers.kakao.com/docs/ko/message-template/default)

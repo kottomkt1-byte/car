@@ -1,6 +1,6 @@
 // JavaScript keys are public browser identifiers. Never put an Admin/REST key here.
 export const KAKAO_CONFIG = Object.freeze({
- javascriptKey: '',
+ javascriptKey: 'a985de668afe3c2ebb143cf05b44cee4',
  siteUrl: 'https://clinquant-basbousa-3ff2ce.netlify.app/'
 });
 

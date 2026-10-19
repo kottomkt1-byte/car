@@ -1,9 +1,9 @@
-import { setupCarImages } from './car-images.js?v=12';
-import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=12';
-import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=12';
-import { publicShare, saveShareCard, kakaoSharePayload } from './share.js?v=12';
+import { setupCarImages } from './car-images.js?v=13';
+import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=13';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=13';
+import { publicShare, saveShareCard, kakaoSharePayload } from './share.js?v=13';
 
-import { KAKAO_CONFIG, createKakaoClient } from './kakao.js?v=12';
+import { KAKAO_CONFIG, createKakaoClient } from './kakao.js?v=13';
 
 const kakaoClient=createKakaoClient();
 const $=selector=>document.querySelector(selector);
