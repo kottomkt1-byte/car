@@ -8,6 +8,7 @@
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
+    "build:netlify": "node scripts/netlify.mjs",
     "preview:file": "node scripts/standalone.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "node --check src/app.js && node --check src/calculator.js && node --check src/share.js && node --check src/affiliates.js && node --check src/car-media.js && node --check src/car-images.js"
