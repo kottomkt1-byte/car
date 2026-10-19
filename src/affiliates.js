@@ -1,4 +1,11 @@
-// Replace only `url` with YOUR actual Coupang Partners link. No fake tracking IDs.
+// Owner-supplied destination. The illustration intentionally does not depict its contents.
+export const MYSTERY_TEASER = Object.freeze({
+  url: 'https://link.coupang.com/a/hYbkBCWIkS',
+  image: './public/mystery-box.png',
+  disclosure: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
+});
+
+// Optional future product cards; only add links for the exact products described.
 export const PRODUCTS = [
   { id: 'holder', title: '운전에 집중하는 거치대', category: '첫 차 기본템', description: '시야를 가리지 않는 위치와 내 휴대폰 크기부터 확인하세요.', icon: 'phone', tags: ['all'], url: '' },
   { id: 'care', title: '작게 시작하는 세차 키트', category: '셀프 관리', description: '큰 세트보다 극세사 타월과 기본 세정제부터.', icon: 'spark', tags: ['all'], url: '' },

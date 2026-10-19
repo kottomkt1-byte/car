@@ -16,7 +16,7 @@ npm run preview:file
 
 - 개발 주소: http://localhost:4173
 - 정적 배포 디렉터리: `dist/`
-- 단일 HTML: `artifacts/chabunhi-preview.html`. CSS와 JavaScript, 메인 차량 이미지를 내장합니다. 추가 차량 사진과 웹폰트에는 인터넷이 필요합니다.
+- 단일 HTML: `artifacts/chabunhi-preview.html`. CSS와 JavaScript, 메인 차량 이미지와 광고 배너 이미지를 내장합니다. 추가 차량 사진과 웹폰트에는 인터넷이 필요합니다.
 - 원본 index.html은 HTTP로 여세요. file:// 미리보기에는 위 단일 HTML을 사용합니다.
 
 ## 사용 흐름
@@ -91,13 +91,13 @@ npm run preview:file
 
 ## 쿠팡 파트너스
 
-현재 실제 파트너스 링크가 없어서 추천 상품 영역은 숨겨져 있습니다. 수익 추적도 활성화되지 않았습니다.
+결과 화면에 미스터리 박스 이미지와 “비싼 차 없어도, 여자에게 사랑받는 남자가 되려면… 이것을 사야 합니다.” 문구, “클릭하기” 버튼을 표시합니다. PC에서는 추천 3대 아래, 모바일에서는 첫 번째 추천차 바로 아래에 배치합니다. 화면 크기가 바뀌면 실제 DOM 순서도 함께 바뀝니다.
 
-`src/affiliates.js`에 본인 계정의 실제 상품 링크를 넣고 제목과 설명을 해당 상품에 맞추세요. HTTPS의 `link.coupang.com`, `coupa.ng` 주소만 허용합니다. 유효한 링크가 있으면 결과 하단에 상품과 다음 고지가 함께 나타납니다.
+`src/affiliates.js`의 `MYSTERY_TEASER`에 운영자가 제공한 `https://link.coupang.com/a/hYbkBCWIkS`를 연결했습니다. `public/mystery-box.png`는 생성한 추상적인 티저 이미지로 실제 상품 사진이 아닙니다. 배너 전체를 누르면 새 창으로 쿠팡 링크를 엽니다. 배너 위에 광고임을 표시하고, 바로 아래에 다음 고지를 12px로 표시합니다.
 
 > 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
 
-링크에는 `rel="sponsored noopener noreferrer"`를 붙입니다. 금액을 광고 URL에 붙이지 않으며 결과 확인 전 광고나 공유를 강제하지 않습니다. 실제 사이트 주소를 파트너스 활동 채널로 등록하고 현재 운영 정책을 확인하세요.
+링크에는 `rel="sponsored noopener noreferrer"`를 붙입니다. 금액을 광고 URL에 붙이지 않으며 결과 확인 전 광고나 공유를 강제하지 않습니다. 별도 클릭 추적 코드는 없습니다. HTTPS의 `link.coupang.com`, `coupa.ng` 주소만 허용합니다. 기존 `PRODUCTS`는 추후 상품별 카드를 추가하기 위한 설정이며, 실제 링크가 비어 있는 항목은 숨깁니다. 실제 사이트 주소를 파트너스 활동 채널로 등록하고 현재 운영 정책을 확인하세요.
 
 ## 검증과 배포
 

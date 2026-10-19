@@ -1,7 +1,7 @@
-import { setupCarImages } from './car-images.js?v=5';
-import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=5';
-import { recommendProducts, validAffiliateUrl } from './affiliates.js?v=5';
-import { publicShare, saveShareCard } from './share.js?v=5';
+import { setupCarImages } from './car-images.js?v=6';
+import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=6';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=6';
+import { publicShare, saveShareCard } from './share.js?v=6';
 
 const $=selector=>document.querySelector(selector);
 const state={values:{...DEFAULTS},family:false,result:null,previous:null};
@@ -19,6 +19,18 @@ function carImage(car){
  const sources=JSON.stringify([car.image,car.imageFallback].filter(Boolean));
  return `<div class="car-stage" data-image-state="loading" aria-busy="true"><img data-sources="${escape(sources)}" alt="${escape(car.name)} 외관 참고 이미지" width="720" height="400" loading="eager" decoding="async" referrerpolicy="no-referrer" style="visibility:hidden"><span class="image-loading">차량 사진을 불러오고 있어요</span><div class="image-fallback" hidden><strong>${escape(car.name)}</strong><p>사진 연결이 잠시 끊겼어요.</p><button type="button" class="image-retry">사진 다시 불러오기 ↻</button></div></div>`;
 }
+const compactResults=window.matchMedia('(max-width: 760px)');
+function mysteryTeaser(){
+ if(!validAffiliateUrl(MYSTERY_TEASER.url))return '';
+ return `<aside class="affiliate-teaser" aria-label="쿠팡 파트너스 광고"><a class="mystery-link" href="${escape(MYSTERY_TEASER.url)}" target="_blank" rel="sponsored noopener noreferrer" aria-label="미스터리 상품, 쿠팡에서 확인하기 (새 창)" aria-describedby="mystery-disclosure"><div class="mystery-copy"><span class="mystery-ad-label">AD · 쿠팡 파트너스</span><p class="mystery-kicker">비싼 차 없어도,</p><h3 class="mystery-title">여자에게 사랑받는<br>남자가 <em>되려면…</em></h3><p class="mystery-hook">이것을 사야 합니다.</p></div><div class="mystery-art" aria-hidden="true"><img src="${escape(MYSTERY_TEASER.image)}" alt="" width="1536" height="1024" loading="eager" decoding="async"></div><div class="mystery-action"><span class="mystery-button">클릭하기 <span aria-hidden="true">↗</span></span><span class="mystery-destination">쿠팡에서 보기</span></div></a><p id="mystery-disclosure" class="mystery-disclosure">${escape(MYSTERY_TEASER.disclosure)}</p></aside>`;
+}
+function placeMysteryTeaser(){
+ const grid=$('.recommendations-grid'),teaser=grid?.querySelector('.affiliate-teaser');
+ if(!teaser)return;
+ const first=grid.querySelector('.recommendation-card');
+ if(compactResults.matches&&first)first.after(teaser);else grid.append(teaser);
+}
+compactResults.addEventListener('change',placeMysteryTeaser);
 function productsBlock(r){const products=recommendProducts({power:r.best?.body?.includes('전기')?'electric':'gasoline'}).filter(p=>validAffiliateUrl(p.url));if(!products.length)return '';return `<section class="products"><h3>첫 차에 필요한 용품도 살펴보세요.</h3><p class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p><div class="product-list">${products.map(p=>`<a href="${escape(p.url)}" target="_blank" rel="sponsored noopener noreferrer"><b>${escape(p.title)}</b><p>${escape(p.description)}</p><span>쿠팡에서 확인 ↗</span></a>`).join('')}</div></section>`;}
 function budgetContext(r) {
  return `<div class="budget-context" aria-label="추천에 사용한 예산"><div><span>매달 차에 쓸 수 있는 돈</span><strong>${preciseMoney(r.monthlyLimit)}</strong></div><div><span>차 구입·유지에 쓸 자산</span><strong>${readable(r.upfront)}</strong></div></div><p class="budget-explanation">추정 월 수입 ${money(r.income)} − 지출 ${money(r.input.expenses)}${r.reserveTopup>0?` − 비상금 적립 ${preciseMoney(r.reserveTopup)}`:''}. 남는 돈의 35%를 월 차량 예산으로 잡았어요.${r.livingReserve>0?` 소득으로 부족한 5년치 생활비 ${readable(r.livingReserve)}는 자산에서 따로 남겼어요.`:''}</p>`;
@@ -45,9 +57,10 @@ function renderResults(scroll=false) {
  const title=fits===3?'내 조건에 맞는 차 3대.':fits>0?`예산에 맞는 ${fits}대와 다음 후보.`:'예산을 더 모으면 비교할 차 3대.';
  const explanation=fits===3?`${CATALOGUE_SIZE}개 차종에서 골랐어요. 같은 모델은 한 번만, 비슷한 예산에서 서로 다른 선택을 보여드려요.`:`현재 조건에 맞는 차는 ${fits}대예요. 나머지는 ‘예산 초과’로 구분했으니 필요한 추가자금을 확인해주세요.`;
  const reserveNote=r.reserveTopup>0?`<p class="reserve-note">현재 확보한 비상금 ${readable(r.reserveHeld)}. 목표까지 ${readable(r.reserveGap)} 부족해 매달 ${preciseMoney(r.reserveTopup)}씩 24개월간 적립하는 조건이에요.</p>`:'';
- const result=`<div class="recommendations-heading"><div><p class="eyebrow">${r.family?'부모님 지원 가정으로 비교했어요':'내 소득과 자산으로 비교했어요'}</p><h2 id="result-title" tabindex="-1">${title}</h2></div><button class="catalogue-button" data-open="catalogue-dialog">전체 ${CATALOGUE_SIZE}개 차종 ↗</button></div><p class="recommendations-explanation">${explanation}</p><div class="recommendations-grid">${r.recommendations.map((car,i)=>recommendationCard(car,i,r)).join('')}</div>${reserveNote}<p class="assumption-line">차량가·유지비·실수령액은 비교용 가정 · 60개월 / 연 6% 할부 · 실제 견적과 대출 승인 여부는 별도예요. 주문 제작 차량은 옵션·판매 조건에 따라 가격이 크게 달라져요. <button class="text-link" data-open="method-dialog">추천 기준</button></p>${fits?`<div class="share-actions"><button id="share-result">추천 ${fits}대 공유 ↗</button><button id="save-card">결과 카드 저장 ↓</button><p>금액과 예산 초과 차량은 공유에서 빠져요.</p></div>`:''}${productsBlock(r)}`;
+ const result=`<div class="recommendations-heading"><div><p class="eyebrow">${r.family?'부모님 지원 가정으로 비교했어요':'내 소득과 자산으로 비교했어요'}</p><h2 id="result-title" tabindex="-1">${title}</h2></div><button class="catalogue-button" data-open="catalogue-dialog">전체 ${CATALOGUE_SIZE}개 차종 ↗</button></div><p class="recommendations-explanation">${explanation}</p><div class="recommendations-grid">${r.recommendations.map((car,i)=>recommendationCard(car,i,r)).join('')}${mysteryTeaser()}</div>${reserveNote}<p class="assumption-line">차량가·유지비·실수령액은 비교용 가정 · 60개월 / 연 6% 할부 · 실제 견적과 대출 승인 여부는 별도예요. 주문 제작 차량은 옵션·판매 조건에 따라 가격이 크게 달라져요. <button class="text-link" data-open="method-dialog">추천 기준</button></p>${fits?`<div class="share-actions"><button id="share-result">추천 ${fits}대 공유 ↗</button><button id="save-card">결과 카드 저장 ↓</button><p>금액과 예산 초과 차량은 공유에서 빠져요.</p></div>`:''}${productsBlock(r)}`;
  disposeCarImages();
  $('#results').innerHTML=modes+familyNote+budgetContext(r)+changeContext(r)+result;
+ placeMysteryTeaser();
  $('#landing').hidden=true;$('#results').hidden=false;
  $('#edit-inputs').addEventListener('click',editInputs);
  document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{state.family=button.dataset.mode==='family';state.previous=null;renderResults();}));
