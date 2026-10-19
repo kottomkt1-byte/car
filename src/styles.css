@@ -32,7 +32,6 @@
 .mystery-link:hover{border-color:#ff8a51;box-shadow:0 16px 50px #f7632522}
 .mystery-link:focus-visible{outline:3px solid #ffb38c;outline-offset:5px}
 .mystery-copy{grid-column:1;grid-row:1;padding:30px 0 0 36px;position:relative;z-index:1}
-.mystery-ad-label{display:inline-flex;align-items:center;border:1px solid #555054;border-radius:4px;padding:4px 8px;font-size:10px;font-weight:600;letter-spacing:.04em;color:#cec8c4}
 .mystery-kicker{font-size:19px;font-weight:600;letter-spacing:-.6px;color:#d3c8c1;margin-top:17px}
 .mystery-title{font-size:clamp(32px,3.8vw,48px);font-weight:900;line-height:1.15;letter-spacing:-1.8px;margin-top:6px}
 .mystery-title em{font-style:normal;color:#ff955b}
@@ -44,12 +43,11 @@
 .mystery-button{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;min-height:46px;padding:11px 18px;border-radius:6px;background:#ff7849;color:#1c1410;font-size:15px;font-weight:900;box-shadow:0 5px 20px #ff633c22}
 .mystery-button>span{font-size:24px;line-height:1}
 .mystery-destination{color:#c0b7b1;font-size:11px}
-.mystery-disclosure{font-size:12px;line-height:1.7;color:#b9bbc2;margin:10px 4px 0;word-break:keep-all}
+.mystery-disclosure{font-size:12px;line-height:1.7;color:#b9bbc2;margin:0;word-break:keep-all}
 @media(max-width:760px){
  .affiliate-teaser{margin:2px 0 4px}
  .mystery-link{grid-template-columns:1fr;grid-template-rows:auto 165px auto}
  .mystery-copy{grid-column:1;grid-row:1;padding:22px 24px 0}
- .mystery-ad-label{font-size:10px;padding:3px 7px}
  .mystery-kicker{margin-top:14px;font-size:17px}
  .mystery-title{font-size:clamp(27px,8vw,34px);letter-spacing:-1.2px;line-height:1.15}
  .mystery-art{grid-column:1;grid-row:2;margin-top:-8px}
@@ -57,6 +55,6 @@
  .mystery-action{grid-column:1;grid-row:3;padding:4px 24px 22px;gap:12px}
  .mystery-button{flex:1;min-height:46px;font-size:14px;padding:10px 15px}
  .mystery-destination{font-size:10px}
- .mystery-disclosure{margin:10px 3px 0;font-size:12px;line-height:1.7}
+ .mystery-disclosure{margin:0;font-size:12px;line-height:1.7}
 }
 @media(prefers-reduced-motion:reduce){.mystery-link,.mystery-art img{transition:none}.mystery-link:hover .mystery-art img{transform:none}}

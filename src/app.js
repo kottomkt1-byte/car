@@ -1,6 +1,6 @@
 import { setupCarImages } from './car-images.js?v=6';
 import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=6';
-import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=6';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=7';
 import { publicShare, saveShareCard } from './share.js?v=6';
 
 const $=selector=>document.querySelector(selector);
@@ -22,7 +22,7 @@ function carImage(car){
 const compactResults=window.matchMedia('(max-width: 760px)');
 function mysteryTeaser(){
  if(!validAffiliateUrl(MYSTERY_TEASER.url))return '';
- return `<aside class="affiliate-teaser" aria-label="쿠팡 파트너스 광고"><a class="mystery-link" href="${escape(MYSTERY_TEASER.url)}" target="_blank" rel="sponsored noopener noreferrer" aria-label="미스터리 상품, 쿠팡에서 확인하기 (새 창)" aria-describedby="mystery-disclosure"><div class="mystery-copy"><span class="mystery-ad-label">AD · 쿠팡 파트너스</span><p class="mystery-kicker">비싼 차 없어도,</p><h3 class="mystery-title">여자에게 사랑받는<br>남자가 <em>되려면…</em></h3><p class="mystery-hook">이게 필요합니다.</p></div><div class="mystery-art" aria-hidden="true"><img src="${escape(MYSTERY_TEASER.image)}" alt="" width="1536" height="1024" loading="eager" decoding="async"></div><div class="mystery-action"><span class="mystery-button">클릭하기 <span aria-hidden="true">↗</span></span><span class="mystery-destination">쿠팡에서 보기</span></div></a><p id="mystery-disclosure" class="mystery-disclosure">${escape(MYSTERY_TEASER.disclosure)}</p></aside>`;
+ return `<aside class="affiliate-teaser" aria-label="쿠팡 파트너스 광고"><a class="mystery-link" href="${escape(MYSTERY_TEASER.url)}" target="_blank" rel="sponsored noopener noreferrer" aria-label="미스터리 상품, 쿠팡에서 확인하기 (새 창)" aria-describedby="mystery-disclosure"><div class="mystery-copy"><p id="mystery-disclosure" class="mystery-disclosure">${escape(MYSTERY_TEASER.disclosure)}</p><p class="mystery-kicker">비싼 차 없어도,</p><h3 class="mystery-title">여자에게 사랑받는<br>남자가 <em>되려면…</em></h3><p class="mystery-hook">이게 필요합니다.</p></div><div class="mystery-art" aria-hidden="true"><img src="${escape(MYSTERY_TEASER.image)}" alt="" width="1536" height="1024" loading="eager" decoding="async"></div><div class="mystery-action"><span class="mystery-button">클릭하기 <span aria-hidden="true">↗</span></span><span class="mystery-destination">쿠팡에서 보기</span></div></a></aside>`;
 }
 function placeMysteryTeaser(){
  const grid=$('.recommendations-grid'),teaser=grid?.querySelector('.affiliate-teaser');
@@ -31,7 +31,7 @@ function placeMysteryTeaser(){
  if(compactResults.matches&&first)first.after(teaser);else grid.append(teaser);
 }
 compactResults.addEventListener('change',placeMysteryTeaser);
-function productsBlock(r){const products=recommendProducts({power:r.best?.body?.includes('전기')?'electric':'gasoline'}).filter(p=>validAffiliateUrl(p.url));if(!products.length)return '';return `<section class="products"><h3>첫 차에 필요한 용품도 살펴보세요.</h3><p class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p><div class="product-list">${products.map(p=>`<a href="${escape(p.url)}" target="_blank" rel="sponsored noopener noreferrer"><b>${escape(p.title)}</b><p>${escape(p.description)}</p><span>쿠팡에서 확인 ↗</span></a>`).join('')}</div></section>`;}
+function productsBlock(r){const products=recommendProducts({power:r.best?.body?.includes('전기')?'electric':'gasoline'}).filter(p=>validAffiliateUrl(p.url));if(!products.length)return '';return `<section class="products"><h3>첫 차에 필요한 용품도 살펴보세요.</h3><p class="ad-disclosure">이 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p><div class="product-list">${products.map(p=>`<a href="${escape(p.url)}" target="_blank" rel="sponsored noopener noreferrer"><b>${escape(p.title)}</b><p>${escape(p.description)}</p><span>쿠팡에서 확인 ↗</span></a>`).join('')}</div></section>`;}
 function budgetContext(r) {
  return `<div class="budget-context" aria-label="추천에 사용한 예산"><div><span>매달 차에 쓸 수 있는 돈</span><strong>${preciseMoney(r.monthlyLimit)}</strong></div><div><span>차 구입·유지에 쓸 자산</span><strong>${readable(r.upfront)}</strong></div></div><p class="budget-explanation">추정 월 수입 ${money(r.income)} − 지출 ${money(r.input.expenses)}${r.reserveTopup>0?` − 비상금 적립 ${preciseMoney(r.reserveTopup)}`:''}. 남는 돈의 35%를 월 차량 예산으로 잡았어요.${r.livingReserve>0?` 소득으로 부족한 5년치 생활비 ${readable(r.livingReserve)}는 자산에서 따로 남겼어요.`:''}</p>`;
 }

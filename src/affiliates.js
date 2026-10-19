@@ -2,7 +2,7 @@
 export const MYSTERY_TEASER = Object.freeze({
   url: 'https://link.coupang.com/a/hYbkBCWIkS',
   image: './public/mystery-box.png',
-  disclosure: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
+  disclosure: '이 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
 });
 
 // Optional future product cards; only add links for the exact products described.
