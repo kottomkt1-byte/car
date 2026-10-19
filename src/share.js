@@ -5,7 +5,7 @@ function shareCars(result) {
 export function publicShare(result,url) {
  const cleanUrl=new URL(url);cleanUrl.search='';cleanUrl.hash='';
  const shareable=['https:','http:'].includes(cleanUrl.protocol)&&!['localhost','127.0.0.1','[::1]'].includes(cleanUrl.hostname);
- const cars=shareCars(result),mode=result.family?'부모님 지원 가정':'내 소득·자산 기준';
+ const cars=shareCars(result),mode='내 소득·자산 기준';
  return {title:`내 조건에 맞는 차 ${cars.length}대 | 차분히`,text:`${mode}으로 추천받은 차!\n${cars.length?cars.map((car,i)=>`${i+1}. ${car.name} (${car.trim})`).join('\n'):'현재 예산에 맞는 차종 없음'}\n너는 무슨 차 나와?`,...(shareable?{url:cleanUrl.href}:{})};
 }
 export async function saveShareCard(result) {
@@ -15,7 +15,7 @@ export async function saveShareCard(result) {
  const cars=shareCars(result);
  c.fillStyle='#101113';c.fillRect(0,0,1080,1350);c.fillStyle='#ff633c';c.fillRect(70,70,10,48);
  c.font='bold 35px sans-serif';c.fillText('차분히 · 내 차 추천',105,108);
- c.fillStyle='#a6a8ae';c.font='28px sans-serif';c.fillText(result.family?'부모님 지원을 받는다면':'내 소득과 자산으로',80,220);
+ c.fillStyle='#a6a8ae';c.font='28px sans-serif';c.fillText('내 소득과 자산으로',80,220);
  c.fillStyle='#fff';c.font='bold 56px sans-serif';c.fillText(`내 조건에 맞는 차 ${cars.length}대`,80,315);
  cars.forEach((car,i)=>{
   const y=445+i*230;c.fillStyle='#ff633c';c.font='bold 26px sans-serif';c.fillText(`0${i+1}`,80,y);
@@ -24,7 +24,7 @@ export async function saveShareCard(result) {
  });
  c.strokeStyle='#414247';c.lineWidth=2;c.beginPath();c.moveTo(80,1110);c.lineTo(1000,1110);c.stroke();
  c.fillStyle='#fff';c.font='bold 43px sans-serif';c.fillText('너는 무슨 차 나와?',80,1200);
- c.fillStyle='#a6a8ae';c.font='24px sans-serif';c.fillText('연봉 · 지출 · 내 자산 · 부모님 자산',80,1270);
+ c.fillStyle='#a6a8ae';c.font='24px sans-serif';c.fillText('연봉 · 지출 · 내 자산',80,1270);
  const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('이미지를 만들 수 없어요.');
  const objectUrl=URL.createObjectURL(blob),a=document.createElement('a');a.href=objectUrl;a.download='차분히-내-추천-차-3대.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(objectUrl),3000);
 }

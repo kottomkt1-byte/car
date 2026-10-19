@@ -1,9 +1,9 @@
 {
   "name": "chabunhi-car-budget",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "private": true,
   "type": "module",
-  "description": "차분히 — 숫자 네 개로 내 차 추천",
+  "description": "차분히 — 숫자 세 개로 내 차 추천",
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs",

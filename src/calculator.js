@@ -1,12 +1,12 @@
-import { CAR_MEDIA } from './car-media.js?v=6';
+import { CAR_MEDIA } from './car-media.js?v=10';
 // Money is in 만원. Planning assumptions, not lending or tax rules.
 export const ASSUMPTIONS = Object.freeze({
  netRate: .8, reserveMonths: 6, reserveBuildMonths: 24,
  assetUse: .35, surplusUse: .35, apr: 6, months: 60,
- feesRate: .07, registration: 30, familyRate: .02, familyLimit: 10000
+ feesRate: .07, registration: 30
 });
-export const DEFAULTS=Object.freeze({salary:5000,expenses:150,assets:3000,parents:0});
-export const LIMITS=Object.freeze({salary:1000000,expenses:100000,assets:100000000,parents:100000000});
+export const DEFAULTS=Object.freeze({salary:5000,expenses:150,assets:3000});
+export const LIMITS=Object.freeze({salary:1000000,expenses:100000,assets:100000000});
 const ORIGINAL_CARS=[
  {id:'morning-used',brand:'KIA',name:'기아 모닝',trim:'가솔린 · 중고',price:800,running:22,tier:'중고 경차',official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
  {id:'ray-used',brand:'KIA',name:'기아 레이',trim:'가솔린 · 중고',price:1100,running:24,tier:'중고 경차',official:'https://cpo.kia.com/',note:'비교용 중고차 가격이며 연식·상태에 따라 달라요.'},
@@ -167,31 +167,27 @@ export function assessCar(car, c) {
  };
 }
 
-export function recommend(input = DEFAULTS, family = false) {
+export function recommend(input = DEFAULTS) {
  const p = normalize(input), a = ASSUMPTIONS;
  const income = p.salary / 12 * a.netRate;
  const surplus = Math.max(0, income - p.expenses);
  const reserve = p.expenses * a.reserveMonths;
- const familySupport = family ? Math.min(p.parents * a.familyRate, a.familyLimit) : 0;
  // Ring-fence living expenses before spending assets on a car. If income is
  // below expenses, cover that shortfall for the same 60-month planning horizon.
  const livingDrawdown = Math.max(0, p.expenses - income);
  const livingReserve = livingDrawdown * a.months;
  const protectedNeed = reserve + livingReserve;
- const supportForProtection = Math.min(familySupport, Math.max(0, protectedNeed - p.assets));
  const ownCash = Math.max(0, p.assets - protectedNeed) * a.assetUse;
- const supportForCar = familySupport - supportForProtection;
- const upfront = ownCash + supportForCar;
- const reserveHeld = Math.min(reserve, p.assets + familySupport);
- const reserveGap = Math.max(0, reserve - p.assets - familySupport);
+ const upfront = ownCash;
+ const reserveHeld = Math.min(reserve, p.assets);
+ const reserveGap = Math.max(0, reserve - p.assets);
  // A shortfall reduces the budget gradually through monthly saving; there is
  // deliberately NO reserveGap===0 gate that invalidates the entire catalogue.
  const reserveTopup = reserveGap / a.reserveBuildMonths;
  const monthlyLimit = Math.max(0, surplus - reserveTopup) * a.surplusUse;
  const c = {
   input: p, income, surplus, reserve, reserveHeld, reserveGap, reserveTopup,
-  livingDrawdown, livingReserve, ownCash, familySupport, supportForProtection,
-  supportForCar, upfront, monthlyLimit, family
+  livingDrawdown, livingReserve, ownCash, upfront, monthlyLimit
  };
  const assessed = CARS.map(car => assessCar(car, c));
  const eligible = assessed.filter(car => car.affordable);
@@ -232,7 +228,7 @@ export function selectRecommendations(assessed) {
 }
 
 export const EXAMPLES = [
- {id:'first',title:'아반떼·K3부터',salary:5000,expenses:150,assets:3000,parents:0},
- {id:'premium',title:'제네시스·BMW까지',salary:10000,expenses:250,assets:10000,parents:0},
- {id:'dream',title:'포르쉐도 가능할까?',salary:20000,expenses:350,assets:50000,parents:0}
+ {id:'first',title:'아반떼·K3부터',salary:5000,expenses:150,assets:3000},
+ {id:'premium',title:'제네시스·BMW까지',salary:10000,expenses:250,assets:10000},
+ {id:'dream',title:'포르쉐도 가능할까?',salary:20000,expenses:350,assets:50000}
 ];
