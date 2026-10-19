@@ -1,7 +1,7 @@
-import { setupCarImages } from './car-images.js?v=10';
-import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=10';
-import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=10';
-import { publicShare, saveShareCard } from './share.js?v=10';
+import { setupCarImages } from './car-images.js?v=11';
+import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=11';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=11';
+import { publicShare, saveShareCard } from './share.js?v=11';
 
 const $=selector=>document.querySelector(selector);
 const state={values:{...DEFAULTS},result:null,previous:null};

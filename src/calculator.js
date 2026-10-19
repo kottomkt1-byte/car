@@ -1,4 +1,4 @@
-import { CAR_MEDIA } from './car-media.js?v=10';
+import { CAR_MEDIA } from './car-media.js?v=11';
 // Money is in 만원. Planning assumptions, not lending or tax rules.
 export const ASSUMPTIONS = Object.freeze({
  netRate: .8, reserveMonths: 6, reserveBuildMonths: 24,
