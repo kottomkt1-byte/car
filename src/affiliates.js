@@ -1,6 +1,6 @@
 // Owner-supplied destination. The illustration intentionally does not depict its contents.
 export const MYSTERY_TEASER = Object.freeze({
-  url: 'https://link.coupang.com/a/hYbkBCWIkS',
+  url: 'https://link.coupang.com/a/hYcAlLnFNk',
   image: './public/mystery-box.png',
   disclosure: '이 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
 });

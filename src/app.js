@@ -1,6 +1,6 @@
 import { setupCarImages } from './car-images.js?v=6';
 import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=6';
-import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=7';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=8';
 import { publicShare, saveShareCard } from './share.js?v=6';
 
 const $=selector=>document.querySelector(selector);
