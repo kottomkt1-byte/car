@@ -1,6 +1,6 @@
 {
   "name": "chabunhi-car-budget",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "private": true,
   "type": "module",
   "description": "차분히 — 숫자 세 개로 내 차 추천",
@@ -11,7 +11,7 @@
     "build:netlify": "node scripts/netlify.mjs",
     "preview:file": "node scripts/standalone.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check src/app.js && node --check src/calculator.js && node --check src/share.js && node --check src/affiliates.js && node --check src/car-media.js && node --check src/car-images.js"
+    "check": "node --check src/app.js && node --check src/calculator.js && node --check src/share.js && node --check src/affiliates.js && node --check src/car-media.js && node --check src/car-images.js && node --check src/kakao.js"
   },
   "engines": {
     "node": ">=20"

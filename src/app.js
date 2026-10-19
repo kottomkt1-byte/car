@@ -1,8 +1,11 @@
-import { setupCarImages } from './car-images.js?v=11';
-import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=11';
-import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=11';
-import { publicShare, saveShareCard } from './share.js?v=11';
+import { setupCarImages } from './car-images.js?v=12';
+import { DEFAULTS, LIMITS, EXAMPLES, CARS, CATALOGUE_SIZE, recommend } from './calculator.js?v=12';
+import { MYSTERY_TEASER, recommendProducts, validAffiliateUrl } from './affiliates.js?v=12';
+import { publicShare, saveShareCard, kakaoSharePayload } from './share.js?v=12';
 
+import { KAKAO_CONFIG, createKakaoClient } from './kakao.js?v=12';
+
+const kakaoClient=createKakaoClient();
 const $=selector=>document.querySelector(selector);
 const state={values:{...DEFAULTS},result:null,previous:null};
 const format=n=>Math.round(n).toLocaleString('ko-KR');
@@ -56,15 +59,30 @@ function renderResults(scroll=false) {
  const title=fits===3?'내 조건에 맞는 차 3대.':fits>0?`예산에 맞는 ${fits}대와 다음 후보.`:'예산을 더 모으면 비교할 차 3대.';
  const explanation=fits===3?`${CATALOGUE_SIZE}개 차종에서 골랐어요. 같은 모델은 한 번만, 비슷한 예산에서 서로 다른 선택을 보여드려요.`:`현재 조건에 맞는 차는 ${fits}대예요. 나머지는 ‘예산 초과’로 구분했으니 필요한 추가자금을 확인해주세요.`;
  const reserveNote=r.reserveTopup>0?`<p class="reserve-note">현재 확보한 비상금 ${readable(r.reserveHeld)}. 목표까지 ${readable(r.reserveGap)} 부족해 매달 ${preciseMoney(r.reserveTopup)}씩 24개월간 적립하는 조건이에요.</p>`:'';
- const result=`<div class="recommendations-heading"><div><p class="eyebrow">내 소득과 자산으로 비교했어요</p><h2 id="result-title" tabindex="-1">${title}</h2></div><button class="catalogue-button" data-open="catalogue-dialog">전체 ${CATALOGUE_SIZE}개 차종 ↗</button></div><p class="recommendations-explanation">${explanation}</p><div class="recommendations-grid">${r.recommendations.map((car,i)=>recommendationCard(car,i,r)).join('')}${mysteryTeaser()}</div>${reserveNote}<p class="assumption-line">차량가·유지비·실수령액은 비교용 가정 · 60개월 / 연 6% 할부 · 실제 견적과 대출 승인 여부는 별도예요. 주문 제작 차량은 옵션·판매 조건에 따라 가격이 크게 달라져요. <button class="text-link" data-open="method-dialog">추천 기준</button></p>${fits?`<div class="share-actions"><button id="share-result">추천 ${fits}대 공유 ↗</button><button id="save-card">결과 카드 저장 ↓</button><p>금액과 예산 초과 차량은 공유에서 빠져요.</p></div>`:''}${productsBlock(r)}`;
+ const result=`<div class="recommendations-heading"><div><p class="eyebrow">내 소득과 자산으로 비교했어요</p><h2 id="result-title" tabindex="-1">${title}</h2></div><button class="catalogue-button" data-open="catalogue-dialog">전체 ${CATALOGUE_SIZE}개 차종 ↗</button></div><p class="recommendations-explanation">${explanation}</p><div class="recommendations-grid">${r.recommendations.map((car,i)=>recommendationCard(car,i,r)).join('')}${mysteryTeaser()}</div>${reserveNote}<p class="assumption-line">차량가·유지비·실수령액은 비교용 가정 · 60개월 / 연 6% 할부 · 실제 견적과 대출 승인 여부는 별도예요. 주문 제작 차량은 옵션·판매 조건에 따라 가격이 크게 달라져요. <button class="text-link" data-open="method-dialog">추천 기준</button></p>${fits?`<div class="share-actions">${kakaoClient.configured?'<button id="share-kakao" class="kakao-share" type="button">카카오톡으로 공유</button>':''}<button id="share-result">추천 ${fits}대 공유 ↗</button><button id="save-card">결과 카드 저장 ↓</button><p>금액과 예산 초과 차량은 공유에서 빠져요.</p></div>`:''}${productsBlock(r)}`;
  disposeCarImages();
  $('#results').innerHTML=resultTop+budgetContext(r)+changeContext(r)+result;
  placeMysteryTeaser();
  $('#landing').hidden=true;$('#results').hidden=false;
  $('#edit-inputs').addEventListener('click',editInputs);
  $('#share-result')?.addEventListener('click',shareResult);
+ const kakaoButton=$('#share-kakao');
+ if(kakaoButton){kakaoButton.addEventListener('click',shareKakaoResult);prepareKakao(kakaoButton);}
  $('#save-card')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{await saveShareCard(state.result);toast('결과 카드를 저장했어요.');}catch{toast('이미지를 저장하지 못했어요. 추천 차 공유를 이용해주세요.');}finally{button.disabled=false;}});
  disposeCarImages=setupCarImages($('#results'));if(scroll){$('#results').scrollIntoView({behavior:'smooth',block:'start'});$('#result-title').focus({preventScroll:true});}
+}
+async function prepareKakao(button){
+ button.disabled=true;button.textContent='카카오톡 연결 중…';button.setAttribute('aria-busy','true');
+ try{await kakaoClient.load();if(button.isConnected)button.textContent='카카오톡으로 공유';}
+ catch{if(button.isConnected)button.textContent='카카오톡 다시 연결';}
+ finally{button.disabled=false;button.removeAttribute('aria-busy');}
+}
+function shareKakaoResult(event){
+ if(!kakaoClient.isReady()){prepareKakao(event.currentTarget);return;}
+ try{
+  const sent=kakaoClient.send(kakaoSharePayload(state.result,KAKAO_CONFIG.siteUrl));
+  Promise.resolve(sent).catch(()=>toast('카카오톡을 열지 못했어요. 추천 차 공유 버튼을 이용해주세요.'));
+ }catch{toast('카카오톡을 열지 못했어요. 추천 차 공유 버튼을 이용해주세요.');}
 }
 function editInputs(){ $('#input-mode-note').textContent='내 소득·자산만으로 계산해요.'; $('#results').hidden=true;$('#landing').hidden=false;$('#calculator').scrollIntoView({behavior:'smooth',block:'start'});$('#salary').focus({preventScroll:true});}
 async function shareResult(){const share=publicShare(state.result,location.href);const text=[share.text,share.url].filter(Boolean).join('\n');try{if(navigator.share){await navigator.share(share);return;}if(navigator.clipboard){await navigator.clipboard.writeText(text);toast('차 이름과 링크를 복사했어요.');return;}}catch(error){if(error.name==='AbortError')return;}let dialog=$('#share-fallback');if(!dialog){dialog=document.createElement('dialog');dialog.id='share-fallback';dialog.innerHTML='<div class="dialog-heading"><h2>추천 차 공유</h2><button class="close" aria-label="닫기">×</button></div><p>아래 내용을 복사해서 보내주세요.</p><textarea readonly aria-label="공유할 내용"></textarea>';document.body.append(dialog);}dialog.querySelector('textarea').value=text;dialog.showModal();dialog.querySelector('textarea').select();}

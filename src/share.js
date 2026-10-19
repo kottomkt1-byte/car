@@ -8,6 +8,12 @@ export function publicShare(result,url) {
  const cars=shareCars(result),mode='내 소득·자산 기준';
  return {title:`내 조건에 맞는 차 ${cars.length}대 | 차분히`,text:`${mode}으로 추천받은 차!\n${cars.length?cars.map((car,i)=>`${i+1}. ${car.name} (${car.trim})`).join('\n'):'현재 예산에 맞는 차종 없음'}\n너는 무슨 차 나와?`,...(shareable?{url:cleanUrl.href}:{})};
 }
+export function kakaoSharePayload(result,url) {
+ const share=publicShare(result,url),cars=shareCars(result);
+ if(!share.url||!cars.length)throw new Error('공유할 추천 차량과 사이트 주소가 필요해요.');
+ const lines=cars.map((car,i)=>`${i+1}. ${car.name.length>42?car.name.slice(0,41)+'…':car.name}`);
+ return {objectType:'text',text:`내 조건에 맞는 차 ${cars.length}대 🚗\n\n${lines.join('\n')}\n\n너는 무슨 차 나와?`,link:{webUrl:share.url,mobileWebUrl:share.url},buttonTitle:'나도 내 차 찾기'};
+}
 export async function saveShareCard(result) {
  await document.fonts.ready;
  const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1350;
