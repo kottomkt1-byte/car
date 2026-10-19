@@ -93,7 +93,7 @@ npm run preview:file
 
 결과 화면에 미스터리 박스 이미지와 “비싼 차 없어도, 여자에게 사랑받는 남자가 되려면… 이게 필요합니다.” 문구, “클릭하기” 버튼을 표시합니다. PC에서는 추천 3대 아래, 모바일에서는 첫 번째 추천차 바로 아래에 배치합니다. 화면 크기가 바뀌면 실제 DOM 순서도 함께 바뀝니다.
 
-`src/affiliates.js`의 `MYSTERY_TEASER`에 운영자가 제공한 `https://link.coupang.com/a/hYcAlLnFNk`를 연결했습니다. `public/mystery-box.png`는 생성한 추상적인 티저 이미지로 실제 상품 사진이 아닙니다. 배너 전체를 누르면 새 창으로 쿠팡 링크를 엽니다. 별도 AD 배지 없이 배너 문구 위에 다음 고지를 12px로 표시합니다.
+`src/affiliates.js`의 `MYSTERY_TEASER`에 운영자가 제공한 `https://link.coupang.com/a/hYcGD9vu6C`를 연결했습니다. `public/mystery-box.png`는 생성한 추상적인 티저 이미지로 실제 상품 사진이 아닙니다. 배너 전체를 누르면 새 창으로 쿠팡 링크를 엽니다. 별도 AD 배지 없이 배너 문구 위에 다음 고지를 12px로 표시합니다.
 
 > 이 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
 
